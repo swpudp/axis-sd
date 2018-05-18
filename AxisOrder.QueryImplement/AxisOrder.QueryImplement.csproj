@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Syllab" Version="1.0.0.7" />
+    <PackageReference Include="Syllab.Mssql" Version="1.0.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AxisOrder.Common\AxisOrder.Common.csproj" />
+    <ProjectReference Include="..\AxisOrder.Models\AxisOrder.Models.csproj" />
+    <ProjectReference Include="..\AxisOrder.QueryContract\AxisOrder.QueryContract.csproj" />
+  </ItemGroup>
+
+</Project>
