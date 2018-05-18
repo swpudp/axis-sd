@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="EventHandlers\" />
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Syllab" Version="1.0.0.7" />
+    <PackageReference Include="Syllab.Driver" Version="1.0.0.9" />
+    <PackageReference Include="Syllab.Driver.InMemory" Version="1.0.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AxisOrder.Common\AxisOrder.Common.csproj" />
+    <ProjectReference Include="..\AxisOrder.Models\AxisOrder.Models.csproj" />
+  </ItemGroup>
+
+</Project>
