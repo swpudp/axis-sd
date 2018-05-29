@@ -13,6 +13,6 @@
         /// <summary>
         /// 当前页数
         /// </summary>
-        public int Current { get; set; }
+        public int PageIndex { get; set; }
     }
 }

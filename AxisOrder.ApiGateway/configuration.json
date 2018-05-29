@@ -1,49 +1,88 @@
-﻿{
-  "DownstreamPathTemplate": "/{url}",
-  "UpstreamPathTemplate": "/",
-  "UpstreamHttpMethod": [
-    "Get"
-  ],
-  "AddHeadersToRequest": {},
-  "AddClaimsToRequest": {},
-  "RouteClaimsRequirement": {},
-  "AddQueriesToRequest": {},
-  "RequestIdKey": "",
-  "FileCacheOptions": {
-    "TtlSeconds": 0,
-    "Region": ""
-  },
-  "ReRouteIsCaseSensitive": false,
-  "ServiceName": "",
-  "DownstreamScheme": "http",
-  "DownstreamHostAndPorts": [
+﻿//{
+//  "ReRoutes": [
+//    {
+//      "DownstreamPathTemplate": "/{url}",
+//      "DownstreamScheme": "http",
+//      "ServiceName": "userapi", //consul中的userapi的service名称
+//      "LoadBalancer": "RoundRobin", //负载均衡算法
+//      "UseServiceDiscovery": true, //启用服务发现
+//      "UpstreamPathTemplate": "/{url}",
+//      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ],
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": null,
+//        "AllowedScopes": []
+//      }
+//    }
+//  ],
+//  "GlobalConfiguration": {
+//    "BaseUrl": "http://localhost:5000",
+//    "ServiceDiscoveryProvider": {
+//      "Host": "10.9.50.144", //consul的地址
+//      "Port": 8500 //consul的端口
+//    }
+//  }
+//}
+{
+  "ReRoutes": [
     {
-      "Host": "localhost",
-      "Port": 800
+      "DownstreamPathTemplate": "/api/sd/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 800
+        },
+        {
+          "Host": "localhost",
+          "Port": 8056
+        }
+      ],
+      //"LoadBalancer": "RoundRobin",
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection",
+        "Key": "sdbalancer"
+      },
+      "UpstreamPathTemplate": "/api/sd/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      //"AddHeadersToRequest": {},
+      //"AddClaimsToRequest": {},
+      //"RouteClaimsRequirement": {},
+      //"AddQueriesToRequest": {},
+      "RequestIdKey": "test",
+      //"FileCacheOptions": {
+      //  "TtlSeconds": 0,
+      //  "Region": ""
+      //},
+      "ReRouteIsCaseSensitive": true,
+      "ServiceName": "sd",
+      "QoSOptions": { //服务质量与熔断
+        "ExceptionsAllowedBeforeBreaking": 5, //允许多少个异常请求
+        "DurationOfBreak": 3, //熔断时间
+        "TimeoutValue": 5000 //如果下游请求的处理时间超过多少则自动将请求设置为超时
+      },
+      "RateLimitOptions": { //限流
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s", //统计时间段
+        "PeriodTimespan": 10, //多少秒之后客户端可以重试
+        "Limit": 100000 //在统计时间段内允许的最大请求数量
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "",
+        "AllowedScopes": []
+      },
+      "HttpHandlerOptions": {
+        "AllowAutoRedirect": true,
+        "UseCookieContainer": true,
+        "UseTracing": true
+      },
+      "UseServiceDiscovery": false
     }
   ],
-  "QoSOptions": {
-    "ExceptionsAllowedBeforeBreaking": 0,
-    "DurationOfBreak": 0,
-    "TimeoutValue": 0
-  },
-  "LoadBalancer": "",
-  "RateLimitOptions": {
-    "ClientWhitelist": [],
-    "EnableRateLimiting": false,
-    "Period": "",
-    "PeriodTimespan": 0,
-    "Limit": 0
-  },
-  "AuthenticationOptions": {
-    "AuthenticationProviderKey": "",
-    "AllowedScopes": []
-  },
-  "HttpHandlerOptions": {
-    "AllowAutoRedirect": true,
-    "UseCookieContainer": true,
-    "UseTracing": true
-  },
-  "UseServiceDiscovery": true,
-  "DangerousAcceptAnyServerCertificateValidator": false
+  "GlobalConfiguration": {
+    //"ServiceDiscoveryProvider": {
+    //  "Host": "localhost",
+    //  "Port": 8500
+    //}
+  }
 }

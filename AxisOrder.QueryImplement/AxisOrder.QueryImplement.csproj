@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Syllab" Version="1.0.0.7" />
+    <PackageReference Include="Syllab" Version="1.0.0.8" />
     <PackageReference Include="Syllab.Mssql" Version="1.0.0.3" />
   </ItemGroup>
 
@@ -18,6 +18,10 @@
     <ProjectReference Include="..\AxisOrder.Common\AxisOrder.Common.csproj" />
     <ProjectReference Include="..\AxisOrder.Models\AxisOrder.Models.csproj" />
     <ProjectReference Include="..\AxisOrder.QueryContract\AxisOrder.QueryContract.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

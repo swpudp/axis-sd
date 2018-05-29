@@ -1,4 +1,6 @@
-﻿using AxisOrder.Models.Views;
+﻿using AxisOrder.Models.Params;
+using AxisOrder.Models.Views;
+using Syllab;
 using Syllab.Data;
 using System.Threading.Tasks;
 
@@ -15,5 +17,13 @@ namespace AxisOrder.QueryContract
         /// <param name="loginName"></param>
         /// <returns></returns>
         Task<UserView> QueryByLoginAsync(string loginName);
+
+        /// <summary>
+        /// 更据用户参数查询用户信息
+        /// </summary>
+        /// <param name="userParam"></param>
+        /// <returns></returns>
+        Task<PagedResult<UserView>> QueryPaged(UserParam userParam);
     }
 }
+

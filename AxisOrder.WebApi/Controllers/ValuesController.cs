@@ -1,19 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AxisOrder.Models.Commands;
+﻿using AxisOrder.Models.Commands;
 using AxisOrder.Models.Entities;
+using AxisOrder.ServcieContracts;
+using AxisOrder.WebApi.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Syllab;
 using Syllab.Driver.Commanding;
+using System.Collections.Generic;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.Threading.Tasks;
 
 namespace AxisOrder.WebApi.Controllers
 {
     /// <summary>
     /// 测试控制器
     /// </summary>
-    [Route("api/[controller]")]
+    [Route(ConstDefine.DefaultRouteTemplate)]
     public class ValuesController : Controller
     {
         /// <summary>
@@ -38,7 +40,15 @@ namespace AxisOrder.WebApi.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            ///var serviceAddress = "http://localhost:22451/ProductService.svc";
+            //var client = new ProductServiceClient(new BasicHttpBinding(), new EndpointAddress(serviceAddress));
+            //var name = client.GetByName($"{Guid.NewGuid()}");
+            //using (var client = new EsbClient())
+            //{
+            //    var service = client.GetClientProxy<IProductService>();
+            //    var name = service.GetByName($"{Guid.NewGuid()}");
+            return new string[] { "value1", "value2", Request.Host.Value, "name" };
+
         }
 
         /// <summary>
@@ -88,7 +98,7 @@ namespace AxisOrder.WebApi.Controllers
         public async Task<IActionResult> ExecTest()
         {
             var id = NewId.StringId();
-            var cmd = new UserRegisterCommand(id, new UserRegisterEntity
+            var cmd = new UserRegisterCommand(new UserRegister
             {
 
                 Id = id,
@@ -103,4 +113,23 @@ namespace AxisOrder.WebApi.Controllers
             return Json(result);
         }
     }
+    ///// <summary>
+    ///// 
+    ///// </summary>
+    //public class ProductServiceClient : ClientBase<IProductService>
+    //{
+    //    /// <summary>
+    //    /// 
+    //    /// </summary>
+    //    /// <param name="binding"></param>
+    //    /// <param name="remoteAddress"></param>
+    //    public ProductServiceClient(Binding binding, EndpointAddress remoteAddress) : base(binding, remoteAddress) { }
+
+    //    /// <summary>
+    //    /// 
+    //    /// </summary>
+    //    /// <param name="name"></param>
+    //    /// <returns></returns>
+    //    public string GetByName(string name) => Channel.GetByName(name);
+    //}
 }
