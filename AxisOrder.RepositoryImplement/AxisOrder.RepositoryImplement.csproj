@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AxisOrder.QueryContract\AxisOrder.QueryContract.csproj" />
+    <ProjectReference Include="..\AxisOrder.RepositoryContract\AxisOrder.RepositoryContract.csproj" />
+  </ItemGroup>
+
+</Project>

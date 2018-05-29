@@ -9,7 +9,7 @@ namespace AxisOrder.WebApi.Controllers
     /// 统计控制器
     /// </summary>
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route(ConstDefine.DefaultRouteTemplate)]
     [EnableCors(ConstDefine.DefaultCrosPolicy)]
     public class StatisticsController : AuthorizedController
     {

@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using AxisOrder.SoapMiddleware;
 using AxisOrder.WebApi.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -21,6 +22,7 @@ using Syllab.Driver.InMemory;
 using System;
 using System.IO;
 using System.Reflection;
+using System.ServiceModel;
 using System.Text;
 
 namespace AxisOrder.WebApi
@@ -70,13 +72,15 @@ namespace AxisOrder.WebApi
             //使用log4net日志
             services.AddLogging(c => c.AddProvider(new Log4NetProvider("log4net.config")));
 
-            services.AddTransient(typeof(Lazy<>));
+            //services.AddTransient(typeof(Lazy<>));
 
             //加载程序集注入依赖项
             var assemblies = new Assembly[] {
                 Assembly.Load("AxisOrder.QueryContract"),
                 Assembly.Load("AxisOrder.QueryImplement"),
-                Assembly.Load("AxisOrder.ProcessManager")
+                Assembly.Load("AxisOrder.ProcessManager"),
+                Assembly.Load("AxisOrder.ServcieContracts"),
+                Assembly.Load("AxisOrder.ServiceImplement")
             };
 
             //使用IOptions
@@ -183,6 +187,9 @@ namespace AxisOrder.WebApi
 
             //使用权限认证
             app.UseAuthentication();
+
+            //使用中间件
+            app.UseSoapMiddleware(new[] { Assembly.Load("AxisOrder.ServiceImplement") }, new BasicHttpBinding());
 
             //启用Mvc组件
             app.UseMvc();

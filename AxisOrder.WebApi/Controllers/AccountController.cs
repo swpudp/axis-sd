@@ -20,7 +20,7 @@ namespace AxisOrder.WebApi.Controllers
     /// 账户控制器
     /// </summary>
     [Produces("application/json")]
-    [Route("api/Account")]
+    [Route("api/sd/Account")]
     [TypeFilter(typeof(HandleErrorAttribute))]
     [AllowAnonymous]
     [EnableCors(ConstDefine.DefaultCrosPolicy)]

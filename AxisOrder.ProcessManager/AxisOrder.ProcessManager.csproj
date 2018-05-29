@@ -15,9 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Syllab" Version="1.0.0.7" />
-    <PackageReference Include="Syllab.Driver" Version="1.0.0.9" />
-    <PackageReference Include="Syllab.Driver.InMemory" Version="1.0.0.4" />
+    <PackageReference Include="Syllab" Version="1.0.0.8" />
+    <PackageReference Include="Syllab.Driver" Version="1.0.0.10" />
+    <PackageReference Include="Syllab.Driver.InMemory" Version="1.0.0.7" />
+    <PackageReference Include="Syllab.Mssql" Version="1.0.0.3" />
   </ItemGroup>
 
   <ItemGroup>

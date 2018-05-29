@@ -16,7 +16,7 @@ namespace AxisOrder.WebApi.Controllers
     /// 产品管理控制器
     /// </summary>
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route(ConstDefine.DefaultRouteTemplate)]
     [EnableCors(ConstDefine.DefaultCrosPolicy)]
     public class ProductController : AuthorizedController
     {
@@ -46,7 +46,7 @@ namespace AxisOrder.WebApi.Controllers
             {
                 where += p => p.Code.Contains(param.Code);
             }
-            var result = _products.Where(where).Skip((param.Current - 1) * param.PageSize).Take(param.PageSize).ToList();
+            var result = _products.Where(where).Skip((param.PageIndex - 1) * param.PageSize).Take(param.PageSize).ToList();
             return await Task.FromResult(Json(new { total = _products.Count(where), rows = result }));
         }
     }

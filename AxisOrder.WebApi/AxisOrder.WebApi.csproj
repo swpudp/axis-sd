@@ -25,9 +25,11 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />
-    <PackageReference Include="Syllab" Version="1.0.0.7" />
-    <PackageReference Include="Syllab.Driver" Version="1.0.0.9" />
-    <PackageReference Include="Syllab.Driver.InMemory" Version="1.0.0.4" />
+    <PackageReference Include="Syllab" Version="1.0.0.8" />
+    <PackageReference Include="Syllab.Driver" Version="1.0.0.10" />
+    <PackageReference Include="Syllab.Driver.InMemory" Version="1.0.0.7" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.4.2" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="4.4.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +42,9 @@
     <ProjectReference Include="..\AxisOrder.ProcessManager\AxisOrder.ProcessManager.csproj" />
     <ProjectReference Include="..\AxisOrder.QueryContract\AxisOrder.QueryContract.csproj" />
     <ProjectReference Include="..\AxisOrder.QueryImplement\AxisOrder.QueryImplement.csproj" />
+    <ProjectReference Include="..\AxisOrder.ServcieContracts\AxisOrder.ServcieContracts.csproj" />
+    <ProjectReference Include="..\AxisOrder.ServiceImplement\AxisOrder.ServiceImplement.csproj" />
+    <ProjectReference Include="..\AxisOrder.SoapMiddleware\AxisOrder.SoapMiddleware.csproj" />
   </ItemGroup>
 
   <ItemGroup>
