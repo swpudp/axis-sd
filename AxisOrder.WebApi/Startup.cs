@@ -45,11 +45,11 @@ namespace AxisOrder.WebApi
                 .AddJsonFile("appsettings.json", true, true)
                 .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", true, true);
 
-            //开发环境使用监控设置
-            if (environment.IsDevelopment())
-            {
-                config.AddApplicationInsightsSettings();
-            }
+            ////开发环境使用监控设置
+            //if (environment.IsDevelopment())
+            //{
+            //    config.AddApplicationInsightsSettings();
+            //}
 
             //添加环境变量
             config.AddEnvironmentVariables();

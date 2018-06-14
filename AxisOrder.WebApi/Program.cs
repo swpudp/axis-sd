@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
@@ -22,17 +23,16 @@ namespace AxisOrder.WebApi
                 .Build();
 
             //构建自宿主
-            var host = new WebHostBuilder()
+            WebHost.CreateDefaultBuilder<Startup>(args)
                 .UseKestrel(o => o.AddServerHeader = false)
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseConfiguration(config)
-                .UseStartup<Startup>()
-                .UseApplicationInsights()
+                //.UseStartup<Startup>()
+                //.UseApplicationInsights()
                 .CaptureStartupErrors(true)
-                .Build();
-            //运行
-            host.Run();
+                .Build()
+                .Run();//运行
         }
     }
 }

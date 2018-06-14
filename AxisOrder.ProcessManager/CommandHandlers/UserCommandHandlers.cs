@@ -10,7 +10,7 @@ namespace AxisOrder.ProcessManager.CommandHandlers
 {
     [Component]
     public class UserCommandHandlers : CommandHandler
-        , ICommandHandlerAsync<UserRegisterCommand>
+        , ICommandHandler<UserRegisterCommand>
         , ICommandHandlerAsync<UserUpdateCommand>
         , ICommandHandler<UserDeleteCommand>//用户注册命令处理
     {
@@ -31,14 +31,16 @@ namespace AxisOrder.ProcessManager.CommandHandlers
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public async Task<Respond> HandleAsync(UserRegisterCommand c)
+        public async Task Handle(UserRegisterCommand c)
         {
             var userExist = await ExecuteAsync(conn => conn.GetCountAsync(new { c.UserRegister.LoginName, IsDelete = false }, Tables.UserTable));
             if (userExist > 0)
             {
-                return new Respond { IsSucceed = false, Message = $"登录名{c.UserRegister.LoginName}已存在!" };
+                return;
+                //new Respond { IsSucceed = false, Message = $"登录名{c.UserRegister.LoginName}已存在!" };
+                //await Task.FromResult(false);
             }
-            return await TryCreateAsync(conn => conn.InsertAsync(c.UserRegister, Tables.UserTable));
+            await TryCreateAsync(conn => conn.InsertAsync(c.UserRegister, Tables.UserTable));
         }
     }
 }
