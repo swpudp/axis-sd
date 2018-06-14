@@ -58,11 +58,16 @@ namespace AxisOrder.WebApi.Controllers
                 var errors = ModelState.GetErrors();
                 return Json(new Respond { IsSucceed = false, Message = string.Join(",", errors) });
             }
+            var exist = await _userQuery.QueryByLoginAsync(userRegister.LoginName);
+            if (exist != null)
+            {
+                return Json(new Respond { IsSucceed = false, Message = $"登录名{userRegister.LoginName}已存在!" });
+            }
             userRegister.Id = NewId.StringId();
             userRegister.Password = userRegister.Password.CreatePassword();
             var cmd = new UserRegisterCommand(userRegister) { Id = userRegister.Id };
-            var result = await _bus.ExecuteAsync(cmd);
-            return Json(result);
+            await _bus.SendAsync(cmd);
+            return Json(Respond.Succeed);
         }
 
 

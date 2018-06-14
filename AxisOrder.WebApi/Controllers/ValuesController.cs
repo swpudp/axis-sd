@@ -40,7 +40,7 @@ namespace AxisOrder.WebApi.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            ///var serviceAddress = "http://localhost:22451/ProductService.svc";
+            //var serviceAddress = "http://localhost:22451/ProductService.svc";
             //var client = new ProductServiceClient(new BasicHttpBinding(), new EndpointAddress(serviceAddress));
             //var name = client.GetByName($"{Guid.NewGuid()}");
             //using (var client = new EsbClient())

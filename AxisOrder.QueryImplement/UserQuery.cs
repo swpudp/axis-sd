@@ -6,6 +6,8 @@ using Dapper;
 using Syllab;
 using Syllab.Components;
 using Syllab.Mssql.Interpret;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AxisOrder.QueryImplement
@@ -16,6 +18,10 @@ namespace AxisOrder.QueryImplement
     [Component]
     public class UserQuery : AbstractGeneralQuery, IUserQuery
     {
+        private static readonly Dictionary<string, UserView> keyValuePairs = new Dictionary<string, UserView>();
+
+        private static IList<UserView> userViews = new List<UserView>();
+
         /// <summary>
         /// 分页查询
         /// </summary>
@@ -44,10 +50,17 @@ namespace AxisOrder.QueryImplement
         /// </summary>
         /// <param name="loginName">用户登录名</param>
         /// <returns></returns>
-        public Task<UserView> QueryByLoginAsync(string loginName)
+        public async Task<UserView> QueryByLoginAsync(string loginName)
         {
+            if (userViews.Any(x => x.LoginName == loginName))
+            {
+                return userViews.First(x => x.LoginName == loginName);
+            }
             var sqlBuilder = InterpretSql.From(Tables.UserTable).Where("LoginName = @LoginName");
-            return QuerySingleAsync<UserView>(sqlBuilder, new { LoginName = loginName });
+            var user = await QuerySingleAsync<UserView>(sqlBuilder, new { LoginName = loginName });
+            if (user == null) return null;
+            userViews.Add(user);
+            return user;
         }
     }
 }
