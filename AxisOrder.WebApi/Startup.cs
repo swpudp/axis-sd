@@ -189,7 +189,7 @@ namespace AxisOrder.WebApi
             app.UseAuthentication();
 
             //使用中间件
-            app.UseSoapMiddleware(new[] { Assembly.Load("AxisOrder.ServiceImplement") }, new BasicHttpBinding());
+            //app.UseSoapMiddleware(new[] { Assembly.Load("AxisOrder.ServiceImplement") }, new BasicHttpBinding());
 
             //启用Mvc组件
             app.UseMvc();

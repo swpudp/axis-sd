@@ -1,7 +1,9 @@
 ﻿using AxisOrder.ServcieContracts;
 using AxisOrder.SoapMiddleware;
 using System;
+using System.Net;
 using System.ServiceModel;
+using System.Text;
 
 namespace ConsoleApp
 {
@@ -9,7 +11,8 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            Test();
+            //Test();
+            //GetSso();
             Console.ReadKey();
         }
 
@@ -26,6 +29,15 @@ namespace ConsoleApp
                     Console.WriteLine(name);
                 }
             }
+        }
+
+        static void GetSso()
+        {
+            var url = "http://test.passport.changhong.com/fetchKey.do?appId=bills-test";
+            var client = new WebClient();
+            var bytes = client.DownloadData(url);
+            var response = Encoding.UTF8.GetString(bytes);
+            Console.Write(response);
         }
     }
 }
